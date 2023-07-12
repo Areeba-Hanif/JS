@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Snake-Water-Gun Game</title>
+  <link rel="stylesheet" href="style.css">
+</head> 
+<body>
+
+  <h1>SNAKE WATER GUN GAME</h1>
+  
+  <p>Enter your choice: Press 's' for snake, 'w' for water, or 'g' for gun</p>
+  
+  <input type="text" id="userInput"><br>
+  <button id="playButton" onclick="game()">PLAY</button>
+  <button id="score" onclick="Check_scores()">Check Scores</button>
+  <button onclick="playAgain()">PLAY AGAIN</button>
+
+  <div id="result1" class="result1"></div>
+  <div id="result2" class="result2"></div>
+
+  <script>
+    let user_score = 0;
+    let comp_score = 0;
+    let resultDiv1 = document.getElementById("result1");
+    let resultDiv2 = document.getElementById("result2");
+
+    function game() {
+      let userInput = document.getElementById("userInput");
+      let input = userInput.value;
+
+      const num = Math.floor(Math.random() * 3) + 1;
+      let alpha;
+      
+      if (num === 1) {
+        alpha = 's';
+      } else if (num === 2) {
+        alpha = 'w';
+      } else {
+        alpha = 'g';
+      }
+
+      if (alpha === 's' && input === 's') {
+        resultDiv1.textContent = "Computer chose snake & You also chose snake.\nIt's a DRAW!";
+      } else if (alpha === 's' && input === 'g') {
+        resultDiv1.textContent = "Computer chose snake & You chose gun.\nCongratulations! You WIN!!";
+        user_score++;
+      } else if (alpha === 's' && input === 'w') {
+        resultDiv1.textContent = "Computer chose snake & You chose water.\nYou Lose!!";
+        comp_score++;
+      } else if (alpha === 'g' && input === 's') {
+        resultDiv1.textContent = "Computer chose gun & You chose snake.\nYou Lose!!";
+        comp_score++;
+      } else if (alpha === 'g' && input === 'w') {
+        resultDiv1.textContent = "Computer chose gun & You chose water.\nCongratulations! You WIN!!";
+        user_score++;
+      } else if (alpha === 'g' && input === 'g') {
+        resultDiv1.textContent = "Computer chose gun & You also chose gun.\nIt's a DRAW!";
+      } else if (alpha === 'w' && input === 's') {
+        resultDiv1.textContent = "Computer chose water & You chose snake.\nCongratulations! You WIN!!";
+        user_score++;
+      } else if (alpha === 'w' && input === 'w') {
+        resultDiv1.textContent = "Computer chose water & You also chose water.\nIt's a DRAW!!";
+      } else if (alpha === 'w' && input === 'g') {
+        resultDiv1.textContent = "Computer chose water & You chose gun.\nYou lose!!";
+        comp_score++;
+      } else {
+        resultDiv1.textContent = "Enter a valid option, please.";
+      }
+
+      
+    }
+  function playAgain(){
+   userInput.value = ""; // Clear the input field
+   resultDiv2.textContent = ""; // Clear the input field
+   game()
+   
+  }
+    function Check_scores() {
+
+      resultDiv2.textContent = `Computer Score: ${comp_score} Your Score: ${user_score}`;
+     
+    }
+  </script>
+</body>
+</html>
